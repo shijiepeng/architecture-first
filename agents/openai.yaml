@@ -1,0 +1,6 @@
+interface:
+  display_name: "架构先行与复杂度控制"
+  short_description: "从项目起步到持续修改，先讨论关键设计，维护模块边界并控制代码复杂度"
+  default_prompt: "使用 $architecture-first 推进这个软件项目，先讨论尚未确定的关键架构取舍，再以最小必要复杂度实现和验证。"
+policy:
+  allow_implicit_invocation: true
