@@ -1,0 +1,6 @@
+interface:
+  display_name: "Architecture First and Complexity Control"
+  short_description: "Guide architecture, module boundaries, and complexity"
+  default_prompt: "Use $architecture-first to advance this software project, discuss unresolved key architectural tradeoffs, then implement and verify with the minimum necessary complexity."
+policy:
+  allow_implicit_invocation: true

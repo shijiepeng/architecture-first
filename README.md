@@ -1,53 +1,64 @@
 # architecture-first
 
-一套用于 AI 辅助软件开发的工程约定，覆盖项目起步、持续修改、UI 调整和阶段交付。它把项目负责人对架构、复杂度、协作和验收的要求整理为可复用、按需加载的 skill，让这些要求能够贯穿不同项目和后续修改。
+**English** | [简体中文](README.zh-CN.md)
 
-## 为了解决什么问题
+Engineering conventions for AI-assisted software development, covering project setup, ongoing changes, UI adjustments, and stage delivery. It turns a project owner's expectations for architecture, complexity, collaboration, and acceptance into a reusable skill that loads guidance as needed across projects and later changes.
 
-使用 AI 持续开发项目时，单次修改看起来完成了，项目整体却可能越来越难维护：新功能不断塞进原有文件，规则在多个位置重复，模块职责逐渐混杂，UI 靠叠加样式补丁修正，文档也随每轮修改不断增长。
+## The problem it addresses
 
-问题还会出现在需求理解和交付上。用户的一句话通常只描述了眼前的需求，背后还有完整使用流程、已有约定和没有逐项说出的合理预期。开发时需要理解这些上下文，同时避免擅自扩大范围。项目准备落地时，核心流程、真实依赖、运行环境和测试也应该已经纳入工作，而不是等用户再次提醒才补上。
+When AI is used to develop a project over time, individual changes can look complete while the overall project becomes harder to maintain: new features pile into existing files, rules are duplicated, module responsibilities become mixed, UI fixes accumulate as style patches, and documentation grows with every round of changes.
 
-这个 skill 的目的，是让 AI 从项目开始就承担相应的工程判断，并在后续修改中持续维护这些约定。用户主要参与业务目标和重要取舍，不必每次重新提醒架构、UI 一致性、文档组织和基本验证要求。
+Problems also arise in understanding requirements and delivering results. A user's sentence usually describes an immediate need, while complete workflows, existing conventions, and reasonable unstated expectations sit behind it. Development needs to account for that context without expanding scope on its own. When the project is ready for real use, core workflows, real dependencies, runtime environments, and testing should already be part of the work, rather than added only after another reminder.
 
-## 用什么思路解决
+This skill asks the AI to take responsibility for those engineering judgments from the start and maintain the conventions through later changes. The user primarily participates in business goals and significant tradeoffs, without repeatedly reminding the AI about architecture, UI consistency, documentation organization, and basic verification.
 
-**先理解要交付的使用结果，再决定代码怎么组织。** 新项目和重要功能先梳理核心流程、数据与状态流动、模块职责和接口。结合对话与项目现状识别有依据的隐含要求；对会实质改变结果的未定选择，提出具体方案和推荐，等待用户确认。已经确认的方案和授权范围内的常规修改直接推进。
+## How it approaches the work
 
-**按当前需求选择架构，并控制维护成本。** 用户指定插件式架构时，就围绕插件职责、接口和生命周期设计；没有指定时，根据实际需求选择。新增抽象、配置、依赖和防御逻辑要有当前需求或具体风险依据。修改应落在负责该规则的位置，必要时调整结构，避免不断添加转发层、重复规则或针对假想需求的扩展。
+**Understand the intended user outcome before deciding how to organize code.** For new projects and significant features, first map core workflows, data and state movement, module responsibilities, and interfaces. Use conversation and project context to identify supported implicit requirements. For unresolved choices that materially affect the outcome, offer concrete options and a recommendation, then wait for confirmation. Proceed directly on confirmed plans and routine changes within authorization.
 
-**根据影响范围投入工作。** 调查从问题所在位置和直接关系开始，发现共享影响或证据不足时再扩大。局部修改采用轻量流程；涉及整体布局、模块职责、业务规则或明显扩围的未定取舍，再进入讨论。日常自查保持简短，让小改动也能顺畅完成。
+**Choose architecture for current needs and control maintenance costs.** If the user specifies a plugin architecture, design around plugin responsibilities, interfaces, and lifecycles. Otherwise, choose according to actual requirements. New abstractions, configuration, dependencies, and defensive logic need a current requirement or concrete risk. Changes should land where the relevant rule is owned, with structural adjustments when needed, rather than accumulating forwarding layers, duplicate rules, or extensions for imagined requirements.
 
-**把 UI 和文档作为项目整体的一部分维护。** UI 修改先定位生效规则及其归属，检查相关组件、交互状态和实际运行画面，及时清理被替代的样式补丁。文档沿用项目已有组织方式：README 提供入口，当前架构原位更新，计划与历史证据放在适合的位置；有文档影响时才同步维护。
+**Match effort to impact.** Start investigation at the issue's location and direct relationships. Expand when shared impact or insufficient evidence emerges. Keep local changes lightweight. Discuss unresolved choices involving overall layout, module responsibilities, business rules, or substantial scope expansion. Keep everyday self-checks brief so small changes remain easy to complete.
 
-**用实际证据判断完成。** 日常修改做相称的验证；可验收阶段、重大功能整体验收和上线准备要求详尽的独立审查、实际测试，以及问题修复后的复核。复用仍有效的 Codex 审查、CI 和其他测试证据，补足未覆盖或因变更失效的部分。设计时就考虑目标运行环境和真实依赖，分别判断阶段目标是否达到、上线条件是否具备。
+**Maintain UI and documentation as parts of the whole project.** For UI changes, locate the effective rule and its owner, check related components, interaction states, and actual rendered views, and remove superseded style patches. Follow existing documentation organization: the README provides entrypoints, current architecture is updated in place, and plans and historical evidence live in appropriate locations. Update documentation when the change affects it.
 
-这些约定着重说明目标、判断依据和原因，把具体实现方法留给任务本身。细则按工作场景拆分，避免每次修改都加载完整流程。
+**Judge completion by actual evidence.** Use proportionate verification for everyday changes. Independently acceptable stages, major feature acceptance, and release preparation require thorough independent review, actual testing, and rechecking after fixes. Reuse still-valid Codex reviews, CI results, and other test evidence, filling uncovered or invalidated areas. Consider the target runtime environment and real dependencies during design. Assess stage goals separately from release readiness.
 
-## Skill 怎么运行
+These conventions emphasize goals, decision criteria, and reasons, leaving specific implementation methods to the task. Detailed rules are separated by work scenario so each change does not require loading the entire process.
 
-在 Codex 中可以明确调用：
+## How the skill works
+
+In Codex, invoke it explicitly:
 
 ```text
-使用 $architecture-first 帮我推进这个项目。
+Use $architecture-first to help me advance this project.
 ```
 
-也可以把它用于具体任务，例如讨论新项目的插件架构、修改已有功能、修复页面布局，或完成一个阶段的验收。[agents/openai.yaml](agents/openai.yaml) 配置了显示名称、默认提示和允许按任务匹配自动选用的设置；[SKILL.md](SKILL.md) 的名称与描述用于说明适用场景。
+It also applies to specific tasks, such as discussing a new project's plugin architecture, changing an existing feature, fixing page layout, or accepting a completed stage. [agents/openai.yaml](en/agents/openai.yaml) defines the display name, default prompt, and automatic task-based selection setting. The name and description in [SKILL.md](en/SKILL.md) describe when the skill applies.
 
-使用时，模型先读取 `SKILL.md`，获得共同约定和选读入口，再根据当前任务读取相关文件。进入新阶段或发现新的影响范围时，再补读所需内容。简单任务可以只使用入口中的约定，已加载且仍有效的内容继续复用。
+The model first reads `SKILL.md` for shared conventions and reference routing, then reads files relevant to the current task. It adds guidance when entering a new stage or discovering a new impact area. Simple tasks can rely on the entrypoint alone; already loaded, still-valid content is reused.
 
-| 当前工作 | 对应文件 |
+| Current work | Reference |
 |---|---|
-| 新项目、重大功能与架构取舍 | [design.md](references/design.md) |
-| 功能修改、缺陷修复与重构 | [changes.md](references/changes.md) |
-| 新增抽象、依赖、配置或插件机制 | [complexity.md](references/complexity.md) |
-| 模块接口、插件、提示词与配置生效 | [contracts.md](references/contracts.md) |
-| 错误、超时、重试与回退处理 | [failures.md](references/failures.md) |
-| 界面布局、样式、交互与共享组件 | [ui.md](references/ui.md) |
-| 行为验证、测试与交付说明 | [verification.md](references/verification.md) |
-| 阶段独立审查与落地验收 | [stage-review.md](references/stage-review.md) |
-| 设计记录、使用说明与文档整理 | [documentation.md](references/documentation.md) |
+| New projects, major features, and architecture tradeoffs | [design.md](en/references/design.md) |
+| Feature changes, bug fixes, and refactoring | [changes.md](en/references/changes.md) |
+| New abstractions, dependencies, configuration, or plugin mechanisms | [complexity.md](en/references/complexity.md) |
+| Module interfaces, plugins, prompts, and configuration taking effect | [contracts.md](en/references/contracts.md) |
+| Errors, timeouts, retries, and fallbacks | [failures.md](en/references/failures.md) |
+| Layout, styles, interactions, and shared UI components | [ui.md](en/references/ui.md) |
+| Behavioral verification, testing, and delivery notes | [verification.md](en/references/verification.md) |
+| Independent stage review and deployment acceptance | [stage-review.md](en/references/stage-review.md) |
+| Design records, usage guidance, and documentation organization | [documentation.md](en/references/documentation.md) |
 
-例如，修复按钮对齐时主要读取 UI 规则；调查“设置保存了但执行没变化”时读取代码修改与合同规则；准备阶段验收时读取阶段审查与验证规则。文件的选择跟随实际工作，不要求按表格顺序依次执行。
+For example, button alignment fixes primarily load UI guidance. Investigating “settings were saved but execution did not change” loads code change and contract guidance. Stage acceptance loads stage review and verification guidance. File selection follows the actual work, not the table's order.
 
-加载后，模型结合项目已有代码、文档和对话上下文开展工作，使用当前环境提供的文件编辑、浏览器、测试与审查工具落实约定。需要用户决定的重要取舍先讨论；实施后按改动范围验证；阶段交付时组织独立审查并处理发现。具体执行规则由 `SKILL.md` 和相应参考文件维护，本 README 说明其用途与运行方式。
+After loading, the model works from the project's existing code, documentation, and conversation context, using file editing, browser, testing, and review tools available in the environment. It discusses significant tradeoffs requiring the user's decision, verifies implementation according to impact, and organizes independent review and handles findings at stage delivery. The detailed execution rules live in `SKILL.md` and its references; this README explains their purpose and operation.
+
+## Language and installation
+
+| | Skill | Files to install |
+|---|---|---|
+| English | [Architecture First and Complexity Control](en/SKILL.md) | Contents of `en/` |
+| 简体中文 | [架构先行与复杂度控制](SKILL.md) | Root `SKILL.md`, `references/`, and `agents/` |
+
+Copy the selected files into a folder named `architecture-first` in your agent's skills directory. For example, use `~/.claude/skills/architecture-first/` for Claude Code or `~/.codex/skills/architecture-first/` for Codex. Install one language at a time; both editions use the same skill name. To update an existing installation, back it up before replacing its files. The English edition includes the complete entrypoint, all nine references, and interface configuration.
